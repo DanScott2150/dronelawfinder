@@ -1,5 +1,5 @@
 {
-  "name": "lawscraper",
+  "name": "dronelawfinder",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -11,5 +11,14 @@
     "url": "https://github.com/danscott2150"
   },
   "author": "Dan Scott",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.3",
+    "graphql-request": "^1.8.1",
+    "json2csv": "^4.2.1",
+    "lodash": "^4.17.10",
+    "request": "^2.87.0",
+    "yargs": "^12.0.1"
+  }
 }
