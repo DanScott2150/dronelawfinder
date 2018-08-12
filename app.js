@@ -5,24 +5,33 @@
 // const _ = require('lodash'); //can uninstall?
 // const argv = require('yargs').argv;  //can uninstall?
 
-
+require('dotenv').config();
 const axios = require("axios");
 const fs = require('fs');
 const json2csvParser = require('json2csv').Parser;
 
-var openStatesKey = "5894d791-dfab-4a95-9e60-2613f8d9ea90";
+var openStatesKey = process.env.OPENSTATESAPIKEY;
 var openStatesURL = "https://openstates.org/api/v1/";
 var fields = "bill_id,title,state,session,action_dates.last,action_dates.signed,sources"  //passed directly into API URL
 
 // var queries = ["unmanned", "drones", "drone"]; //for future use DRY code? Loop over each query and make an API?
-// var states = ["NY", "MA", "NJ"]; //(used for testing purposes)
-var states = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE",
-"FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA",
-"MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH",
-"NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD",
-"TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"];
+var states = ["MN", "MA"]; //(used for testing purposes)
+// var states = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE",
+// "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA",
+// "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH",
+// "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD",
+// "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"];
 
 var allBills = [];
+
+//Basic overview:
+// -> For Each state in States array:
+// --> Run API call to OpenStates, return promise via axios
+// ---> Loop through results, add each to allBills array. Return allBills as promise
+// --> Run second API call to OpenStates, return promise via axios
+// ---> Loop through second set of results, adding each to allBills array. Return allBills as promise
+// --> Using json2csv package, parse allBills data into .csv format & export to external file
+
 
 //Loop through each state and make API calls
 states.forEach(function(state){
